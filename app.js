@@ -9,6 +9,20 @@ const users = [];
 
 const tweets = [];
 
+app.get("/tweets", (req, res) => {
+    const tweetados = tweets.map((tweet) => {
+        return {
+            username: tweet.username,
+            avatar: users.find((user) => {
+                return tweet.username === user.username;
+            }).avatar,
+            tweet: tweet.tweet,
+        };
+    });
+
+    res.send(tweetados);
+});
+
 app.post("/sign-up", (req, res) => {
     const user = req.body;
     users.push(user);
